@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Beginner&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/3d15954b12.js" crossorigin="anonymous"></script>
+    <style>
+        
+        
+        
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f7f7;
+            color: #001c00;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: url('images/mouse.png'), auto;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        header {
+            width: 100%;
+            max-width: 1300px;
+            padding: 25px 30px;
+            box-sizing: border-box;
+            color: #001c00;
+            background: #f7f7f7;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header .header-content {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 1300px;
+        }
+
+        header .header-content .logo {
+            font-size: 1.9em;
+            margin-left: 25px;
+        }
+
+        header .header-content .nav-links {
+            display: flex;
+            gap: 40px;
+            margin-left: 650px;
+        }
+
+        header .header-content .nav-links a {
+            color: #001c00;
+            text-decoration: none;
+            position: relative;
+            font-size: 1.2em;
+            padding: 10px 0;
+            transition: color 0.3s;
+            margin-bottom: 2px;
+            cursor: url('images/mouse.png'), auto;
+        }
+
+        header .header-content .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #004d00;
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease;
+        }
+
+        header .header-content .nav-links a:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        .video-section {
+            position: relative;
+            width: 100vw;
+            height: 80vh; /* Increased the height of the video */
+            overflow: hidden;
+            margin-top: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-section video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-section .overlay-text {
+            position: absolute;
+            left: 11%;
+            bottom: 22%;
+            color: #fff;
+            text-align: left;
+            z-index: 10;
+        }
+
+        .video-section .overlay-text h1 {
+            font-size: 2.9em;
+            margin-bottom: 5%;
+        }
+
+        .video-section .overlay-text p {
+            font-size: 1.5em;
+            margin-bottom: 5%;
+        }
+
+        .video-section .overlay-text button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #004d00;
+            color: #fff;
+            border-radius: 15%;
+            cursor: url('images/mouse.png'), auto;
+            transition: background-color 0.3s;
+        }
+
+        .video-section .overlay-text button:hover {
+            background-color: #002600;
+        }
+
+        .video-section .video-controls {
+            position: absolute;
+            right: 20px;
+            bottom: 15px;
+            z-index: 15;
+            display: flex;
+            gap: 10px;
+            color: #fff;
+        }
+
+        .video-controls img {
+            width: 24px; /* Adjust the size as needed */
+            height: auto;
+            cursor: pointer;
+            transition: opacity 0.9s;
+        }
+
+        .video-controls .volume-icon,
+        .video-controls .play-pause-icon {
+            opacity: 0.7;
+        }
+
+        .video-controls .volume-icon:hover,
+        .video-controls .play-pause-icon:hover {
+            opacity: 1;
+        }
+
+        .video-controls .volume-on,
+        .video-controls .play {
+            display: block;
+        }
+
+        .video-controls .volume-off,
+        .video-controls .pause {
+            display: none;
+        }
+
+
+        .portfolio-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(4, minmax(0, 1fr));
+            gap: 10px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            margin-top: 0;
+        }
+
+        .grid-item {
+            position: relative;
+            overflow: hidden;
+            cursor: url('images/mouse.png'), auto;
+            transition: opacity 0.3s;
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: opacity 0.3s;
+        }
+
+        .grid-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Black overlay with transparency */
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1; /* Ensure the overlay is above the image */
+        }
+
+        .grid-item::before {
+            content: attr(data-title);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 1.2em;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            white-space: nowrap; /* Prevents text wrapping */
+            z-index: 2; /* Ensure the text is above the overlay */
+        }
+
+        .grid-item:hover::after {
+            opacity: 1; /* Show the black overlay on hover */
+        }
+
+        .grid-item:hover::before {
+            opacity: 1; /* Show the text on hover */
+        }
+
+        .grid-item:hover img {
+            opacity: 0.6; /* Dim the image on hover */
+        }
+
+
+
+
+
+        .about-section {
+            display: flex;
+            align-items: center;
+            padding: 120px 70px; /* Increased the height */
+            max-width: 1300px;
+            margin:  auto;
+            box-sizing: border-box;
+            text-align: left; /* Centered the text */
+           
+        }
+
+        .about-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-left: 50px;
+            margin-bottom: 20px; /* Adjusted for centering */
+        }
+
+        .about-section .about-text {
+            max-width: 70%;
+        }
+
+        .about-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .about-section p {
+            font-size: 1.2em;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .divider {
+            width: 100%;
+            height: 1px;
+            background-color: #ccc;
+            margin: 40px 0; /* Divider with margin */
+        }
+
+        .grid-section h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .footer {
+            background-color: #f7f7f7;
+            color: #001c00;
+            padding: 40px 50px;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            border-top: 1px solid #ccc;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .contact-form,
+        .contact-info {
+            flex: 1;
+            max-width: 45%;
+        }
+
+        .contact-form h2,
+        .contact-info h2 {
+            font-size: 1.7em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .contact-form label {
+            font-size: 1.2em;
+            color: #001c00;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            font-size: 1em;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .contact-form button {
+            padding: 10px 20px;
+            background-color: #004d00;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s;
+        }
+
+        .contact-form button:hover {
+            background-color: #002600;
+        }
+
+        .contact-info p {
+            margin: 10px 0;
+            padding: 10px 10px;
+            font-size: 1.1em;
+        }
+
+        .contact-info a {
+            color: #001c00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: #001c00;
+            font-size: 1.5em;
+            transition: color 0.3s;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            color: #004d00;
+        }
+
+
+        .contact-left{
+            flex-basis: 35%;
+        }
+
+        .contact-right{
+            flex-basis: 60%;
+        }
+
+        .contact-left p{
+            margin-top: 30px;
+        }
+        .contact-left p i {
+            color: #ff004f;
+            margin-left: 15px;
+            font-size: 25px;
+        }
+        .social-icons{
+            margin-top: 30px
+        }
+        .social-icons a{
+            text-decoration: none;
+            font-size: 30px;
+            margin-right: 15px;
+            color: #ababab;
+            display: inline-block;
+            transition: transform 0.5s;
+        }
+        .social-icons a:hover{
+            color: #ff004f;
+            transform: translateY(-5px);
+        }
+        
+
+
+
+        @media (max-width: 768px) {
+            .portfolio-container {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(6, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .portfolio-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(12, minmax(0, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-content">
+        <div class="logo">João Paulo Leal</div>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </div>
+</header>
+<section class="video-section">
+    <video id="background-video" src="images/hd.mp4" autoplay muted loop></video>
+    <div class="overlay-text">
+        <h1>Turning moments into stories</h1>
+        <p>Let me tell your story</p>
+        <button onclick="window.location.href='#contact'">Contact</button>
+    </div>
+    <div class="video-controls">
+        <img src="images/volume.png" alt="Volume On" class="volume-icon volume-on" onclick="toggleMute()">
+        <img src="images/mutee.png" alt="Volume Off" class="volume-icon volume-off" style="display: none;" onclick="toggleMute()">
+        <img src="images/volume.png" alt="Play" class="play-pause-icon play" onclick="togglePlayPause()">
+        <img src="images/volume.png" alt="Pause" class="play-pause-icon pause" style="display: none;" onclick="togglePlayPause()">
+    </div>
+
+</section>
+
+<section class="about-section">
+   
+    <div class="about-text">
+        <h2>About Me</h2>
+        <p>I am a filmmaker with a passion for telling stories. With years of experience in the industry, I specialize in creating compelling visual narratives that resonate with audiences.</p>
+    </div>
+    <img src="images/jao.png" alt="About Image">
+</section>
+
+<div class="divider"></div> <!-- Divider line -->
+<h2>My Work</h2>
+<div class="portfolio-container">
+    <!-- Generate rectangles with links -->
+    <a class="grid-item" href="project1.html" data-title="Project 1">
+        <img src="images/video1.png" alt="Project 1 Image">
+    </a>
+    <a class="grid-item" href="project1.html" data-title="Project 1">
+        <img src="images/video1.png" alt="Project 1 Image">
+    </a>
+    <a class="grid-item" href="project1.html" data-title="Project 1">
+        <img src="images/video1.png" alt="Project 1 Image">
+    </a>
+    <a class="grid-item" href="project1.html" data-title="Project 1">
+        <img src="images/video1.png" alt="Project 1 Image">
+    </a>
+    <a class="grid-item" href="project1.html" data-title="Project 1">
+        <img src="images/video1.png" alt="Project 1 Image">
+    </a>
+    <a class="grid-item" href="project1.html" data-title="Project 1">
+        <img src="images/video1.png" alt="Project 1 Image">
+    </a>
+    <a class="grid-item" href="project1.html" data-title="Project 1">
+        <img src="images/video1.png" alt="Project 1 Image">
+    </a>
+    <a class="grid-item" href="project1.html" data-title="Project 1">
+        <img src="images/video1.png" alt="Project 1 Image">
+    </a>
+    <a class="grid-item" href="project1.html" data-title="Project 1">
+        <img src="images/video1.png" alt="Project 1 Image">
+    </a>
+    <a class="grid-item" href="project1.html" data-title="Project 1">
+        <img src="images/video1.png" alt="Project 1 Image">
+    </a>
+    <a class="grid-item" href="project1.html" data-title="Project 1">
+        <img src="images/video1.png" alt="Project 1 Image">
+    </a>
+    <a class="grid-item" href="project1.html" data-title="Project 1">
+        <img src="images/video1.png" alt="Project 1 Image">
+    </a>
+
+</div>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="contact-form">
+            <h2>Contact Us</h2>
+            <form action="submit_form.php" method="POST">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+
+                <button type="submit">Send</button>
+            </form>
+        </div>
+        
+        
+        <div class="contact-info">
+            <h2>Contact Information</h2>
+            <p><i class="fa-brands fa-whatsapp"></i><a href="https://wa.me/5549998109793">+123 456 789</a></p>
+            <p><i class="fa-regular fa-paper-plane"></i>info@example.com</a></p>
+            <div class="social-icons">
+                <a href="https://instagram.com/"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://instagram.com/"><i class="fa-brands fa-vimeo-v"></i></a>
+                <a href="https://instagram.com/"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://instagram.com/"><i class="fa-regular fa-heart"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const video = document.getElementById('background-video');
+    const playPauseIcon = document.getElementById('play-pause');
+    const volumeOnIcon = document.querySelector('.volume-on');
+    const volumeOffIcon = document.querySelector('.volume-off');
+    const playIcon = document.querySelector('.play');
+    const pauseIcon = document.querySelector('.pause');
+
+    function toggleMute() {
+        if (video.muted) {
+            video.muted = false;
+            volumeOnIcon.style.display = 'block';
+            volumeOffIcon.style.display = 'none';
+        } else {
+            video.muted = true;
+            volumeOnIcon.style.display = 'none';
+            volumeOffIcon.style.display = 'block';
+        }
+    }
+
+    function togglePlayPause() {
+        if (video.paused) {
+            video.play();
+            playIcon.style.display = 'none';
+            pauseIcon.style.display = 'block';
+        } else {
+            video.pause();
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+        }
+    }
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,661 @@
+.grid-item::before {
+    content: attr(data-title);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.2em; /* Smaller text size */
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.grid-item::after {
+    content: "2024";
+    position: absolute;
+    top: calc(50% + 1.5em); /* Position below the title */
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: white;
+    font-size: 0.9em; /* Slightly smaller text size for the year */
+    font-style: italic; /* Italicize the year */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.grid-item:hover::before,
+.grid-item:hover::after {
+    opacity: 1;
+}
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Crimson Text', serif;
+    background-color: #f7f7f7;
+    color: #001c00;
+    cursor: url('images/mouse.png'), auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Crimson Text', serif;
+}
+
+.logo {
+    font-size: 2.9em; /* Default size for larger screens */
+    margin-left: 25px; /* Margin for spacing from the left edge */
+    transition: font-size 0.3s, margin-left 0.3s; /* Smooth transition for changes */
+}
+
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 20px 30px;
+    box-sizing: border-box;
+    max-width: 1400px;
+    background-color: #f7f7f7;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+nav ul{
+    width: 100%;
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+nav li{
+    height: 50px;
+}
+nav a{
+    height: 100%;
+    padding: 0 25px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: #001c00;
+    position: relative;
+    font-size: 1.4em;
+    transition: color 0.3s;
+    cursor: url('images/mouse.png'), auto;
+}
+
+nav a:hover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #004d00;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+}
+
+nav a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+
+
+.nav-links {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links li {
+    height: 50px;
+    margin-left: 10px; /* Adjust spacing between links */
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #001c00; /* Example link color */
+    display: block;
+    height: 100%;
+    line-height: 50px; /* Center text vertically */
+}
+
+.sidebar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 250px;
+    z-index: 999;
+    background-color: white;
+    backdrop-filter: blur(10px);
+    box-shadow: -10px 0 10px rgba(255,255,255,0.2);
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.sidebar li {
+    width: 100%;
+}
+.sidebar a {
+    width: 100%;
+}
+
+.video-section {
+    position: relative;
+    width: 100vw;
+    height: 90vh; /* Increased the height of the video */
+    overflow: hidden;
+    margin-top: 6px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-section video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-section .overlay-text {
+    position: absolute;
+    left: 9%;
+    bottom: 28%;
+    color: #fff;
+    text-align: left;
+    z-index: 10;
+}
+
+.video-section .overlay-text h1 {
+    font-size: 3.6em;
+    margin-bottom: 3%;
+}
+
+.video-section .overlay-text p {
+    font-size: 1.5em;
+    margin-bottom: 3%;
+}
+
+.video-section .overlay-text button {
+    font-size: 1em;
+    margin-top: 5px;
+    padding: 10px 30px;
+    background-color: #f7f7f7; /* Light background */
+    color: #000; /* Text color */
+    border: 2px solid transparent; /* Border with initial transparent color */
+    border-radius: 8px; /* Rounded corners */
+    cursor: url('images/mouse.png'), auto; /* Custom cursor */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s; /* Smooth transitions */
+    outline: none; /* Remove default focus outline */
+}
+
+.video-section .overlay-text button:hover {
+    background-color: #004d00; /* Darker background on hover */
+    color: #f7f7f7; /* Light text color on hover */
+    border-color: #004d00; /* Border color matching the hover background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+}
+
+.video-section .overlay-text button:focus {
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1); /* Light shadow for focus state */
+}
+
+.video-section .video-controls {
+    position: absolute;
+    right: 20px;
+    bottom: 15px;
+    z-index: 15;
+    display: flex;
+    gap: 10px;
+    color: #fff;
+}
+
+.video-controls img {
+    width: 24px; /* Adjust the size as needed */
+    height: auto;
+    cursor: url('images/mouse.png'), auto;
+    transition: opacity 0.9s;
+}
+
+.video-controls .volume-icon,
+.video-controls .play-pause-icon {
+    opacity: 0.7;
+}
+
+.video-controls .volume-icon:hover,
+.video-controls .play-pause-icon:hover {
+    opacity: 1;
+}
+
+.video-controls .volume-on,
+.video-controls .play {
+    display: block;
+}
+
+.video-controls .volume-off,
+.video-controls .pause {
+    display: none;
+}
+
+
+.portfolio-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: 0;
+}
+
+.grid-item {
+    position: relative;
+    overflow: hidden;
+    cursor: url('images/mouse.png'), auto;
+    transition: opacity 0.3s;
+}
+
+.grid-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: opacity 0.3s;
+}
+
+.grid-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Black overlay with transparency */
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 1; /* Ensure the overlay is above the image */
+}
+
+.grid-item::before {
+    content: attr(data-title);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 1.2em;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    white-space: nowrap; /* Prevents text wrapping */
+    z-index: 2; /* Ensure the text is above the overlay */
+}
+
+.grid-item:hover::after {
+    opacity: 1; /* Show the black overlay on hover */
+}
+
+.grid-item:hover::before {
+    opacity: 1; /* Show the text on hover */
+}
+
+.grid-item:hover img {
+    opacity: 0.6; /* Dim the image on hover */
+}
+.about-section {
+    display: flex;
+    align-items: center;
+    padding: 70px 70px; /* Adjust padding for a tighter look */
+    max-width: 1400px;
+    margin: auto;
+    box-sizing: border-box;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.about-section img {
+    margin-left: 70px;
+    margin-bottom: 20px;
+    max-width: 70%; /* Adjust image width to be less dominant */
+    height: auto;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.about-section .about-text {
+    max-width: 70%; /* Text takes up to 50% of the width */
+    text-align: left;
+}
+
+.about-section h2 {
+    font-size: 3em; /* Adjusted heading size for a more balanced look */
+    color: #333; /* Dark color for readability */
+    margin-bottom: 40px; /* Spacing below the heading */
+}
+
+.about-section p {
+    font-size: 1.2em; /* Slightly smaller font size for body text */
+    line-height: 1.5; /* Adjust line height for readability */
+    color: #555; /* Lighter color for body text */
+    margin: 0; /* Remove default margin */
+}
+
+@media (max-width: 768px) {
+
+    .logo {
+        font-size: 2em; /* Adjusted size for smaller screens */
+        margin-left: 15px; /* Reduced margin for better spacing on smaller screens */
+    }
+    .about-section {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        text-align: center; /* Center text on smaller screens */
+    }
+
+    .about-section img {
+        max-width: 100%; /* Image takes full width on smaller screens */
+        margin-top: 20px; /* Add margin to separate image from text */
+    }
+
+    .about-section .about-text {
+        max-width: 100%; /* Text takes full width on smaller screens */
+    }
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    margin: 40px 0; /* Divider with margin */
+}
+
+h2 {
+    font-size: 2.5em;
+
+    margin-bottom: 20px;
+    text-align: left;
+
+}
+h4 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.footer {
+    background-color: #f7f7f7;
+    color: #001c00;
+    padding: 40px 20px; /* Adjust padding for mobile */
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center; /* Center the footer content */
+    border-top: 1px solid #ccc;
+}
+
+/* Ensure the content inside the footer is centered */
+.footer-content {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically on small screens */
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Flexbox layout for contact form and info */
+.contact-form,
+.contact-info {
+    flex: 1;
+    max-width: 100%; /* Make sure it doesn't overflow */
+    box-sizing: border-box;
+}
+
+/* Text and form styling */
+.contact-form h2,
+.contact-info h2 {
+    font-size: 1.7em;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center; /* Center the form elements */
+}
+
+.contact-form label {
+    font-size: 1.2em;
+    color: #001c00;
+}
+
+.contact-form input,
+.contact-form textarea {
+    font-size: 1em;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 400px; /* Max width for larger screens */
+    box-sizing: border-box;
+}
+
+.contact-form button {
+    padding: 10px 20px;
+    background-color: #004d00;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: background-color 0.3s;
+}
+
+.contact-form button:hover {
+    background-color: #002600;
+}
+
+.contact-info p {
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 1.1em;
+    text-align: center; /* Center text for contact info */
+}
+
+.contact-info a {
+    color: #001c00;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column; /* Stack contact form and info vertically */
+        align-items: center;
+    }
+
+    .contact-form,
+    .contact-info {
+        max-width: 90%; /* Reduce width on smaller screens */
+        margin-bottom: 20px;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-icons a {
+    color: #001c00;
+    font-size: 1.5em;
+    transition: color 0.3s;
+    text-decoration: none;
+}
+
+.social-icons a:hover {
+    color: #004d00;
+}
+
+
+.contact-left{
+    flex-basis: 35%;
+}
+
+.contact-right{
+    flex-basis: 60%;
+}
+
+.contact-left p{
+    margin-top: 30px;
+}
+.contact-left p i {
+    color: #ff004f;
+    margin-left: 15px;
+    font-size: 25px;
+}
+.social-icons{
+    margin-top: 30px
+}
+.social-icons a{
+    text-decoration: none;
+    font-size: 30px;
+    margin-right: 15px;
+    color: #ababab;
+    display: inline-block;
+    transition: transform 0.5s;
+}
+.social-icons a:hover{
+    color: #ff004f;
+    transform: translateY(-5px);
+}
+
+.menu-button{
+    display: none;
+}
+
+
+@media (max-width: 768px) {
+    h2, h5 {
+        text-align: center;
+    }
+
+    .menu-button{
+        display: block;
+    }
+
+    .hideOnMobile{
+        display: none;
+    }
+
+    .overlay-text{
+        /*margin-top: 90%;*/
+        font-size: 11px;
+        top: 63%;
+        left: 5%; /* Adjust positioning for smaller screens */
+        bottom: 5%; /* Move text higher on the screen */
+        text-align: left; /* Center text for better visibility */
+    }
+    .overlay-text h1{
+        font-size: 16px;
+        margin-bottom: 1%;
+
+    }
+    .overlay-text p{
+        margin-bottom: 1%;
+    }
+
+    .about-section {
+        flex-direction: column; /* Stack content vertically */
+        text-align: center; /* Center the text */
+        padding: 60px 20px; /* Reduce padding for smaller screens */
+    }
+
+    .about-section img {
+        margin-left: 0;
+        margin-bottom: 20px;
+        max-width: 80%;
+    }
+
+    .about-section .about-text {
+        max-width: 100%; /* Full width for text on smaller screens */
+    }
+
+    .about-section h2 {
+        font-size: 1.7em; /* Slightly reduce heading size */
+    }
+
+    .about-section p {
+        font-size: 1.1em; /* Slightly reduce paragraph size */
+    }
+}
+
+@media (max-width: 480px) {
+    .about-section {
+        padding: 50px 15px; /* Further reduce padding for very small screens */
+    }
+
+    .about-section h2 {
+        font-size: 1.5em; /* Further reduce heading size */
+    }
+
+    .about-section p {
+        font-size: 1em; /* Further reduce paragraph size */
+    }
+
+    .about-section img {
+        max-width: 100%; /* Full width image on very small screens */
+    }
+}
+
+
+@media (max-width: 768px) {
+    .portfolio-container {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(6, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.6em; /* Further reduced size for very small screens */
+        margin-left: 10px; /* Further reduced margin for very small screens */
+    }
+
+    .sidebar{
+        width: 100%;
+    }
+    .portfolio-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(12, minmax(0, 1fr));
+    }
+}
